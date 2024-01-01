@@ -14,10 +14,11 @@ let totalScoreP2;
 let currentScoreP1;
 let currentScoreP2;
 
+
+//roll a dice fun
 function rollaDice() {
     diceImg.style.display = "block";
     diceNumber = Math.floor(Math.random() * 6) + 1;
-    console.log(diceNumber)
     if (totalScoreP1 >= 100 || totalScoreP2 >= 100) return;
     if (diceNumber === 1) {
         if (activePlayer === 1) {
@@ -27,6 +28,7 @@ function rollaDice() {
             players[0].classList.remove("player--active");
             players[1].classList.add("player--active");
         } else {
+            //active player is 2
             currentScoreP2 = 0;
             currentScoreElement[1].textContent = currentScoreP2;
             activePlayer = 1;
@@ -34,6 +36,7 @@ function rollaDice() {
             players[1].classList.remove("player--active");
         }
     } else {
+        //dice number other than 1
         if (activePlayer === 1) {
             currentScoreP1 += diceNumber;
         } else {
@@ -41,6 +44,7 @@ function rollaDice() {
         }
         currentScoreElement[activePlayer - 1].textContent = activePlayer === 1 ? currentScoreP1 : currentScoreP2;
     }
+
     diceImg.setAttribute("src", `dice-${diceNumber}.png`)
 }
 
@@ -51,11 +55,12 @@ function holdScore() {
         totalScoreP1 += currentScoreP1;
         scoreElement[0].textContent = totalScoreP1;
         if (totalScoreP1 >= 100) {
+            //player one wins
             players[0].classList.add("player--winner");
             return;
         }
         currentScoreP1 = 0;
-        activePlayer = 2;
+        activePlayer = 2; //change active player
         currentScoreElement[0].textContent = currentScoreP1;
         players[0].classList.remove("player--active");
         players[1].classList.add("player--active");
@@ -63,8 +68,7 @@ function holdScore() {
         totalScoreP2 += currentScoreP2;
         scoreElement[1].textContent = totalScoreP2;
         if (totalScoreP2 >= 100) {
-            rollDiceBtn.setAttribute("disabled", true);
-            holdBtn.setAttribute("disabled", true);
+            //player two wins
             players[1].classList.add("player--winner");
             return;
         }
